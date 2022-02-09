@@ -1,3 +1,4 @@
+import requests
 try:
     from flask import Flask,render_template,url_for,request,redirect, make_response
     import random
@@ -20,7 +21,9 @@ app.register_blueprint(github_blueprint, url_prefix='/github_login')
 
 @app.route('/user')
 def user():
-    return jsonify(github.get('/user'))
+    response = requests.get("https://api.github.com/users/Prateeksharma911/events")
+    response = response.json()
+    return response
 
 
 @app.route('/login')
